@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Gankki</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_gank_item">Apple 团队开源的基于 Google Protocol Buffer (\"protobuf\") 序列化技术的运行时</string>
+</resources>
