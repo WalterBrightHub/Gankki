@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ssmbu.gankki.R;
+import com.example.ssmbu.gankki.service.entity.GankItem;
 import com.example.ssmbu.gankki.service.presenter.GankPresenter;
 import com.example.ssmbu.gankki.service.view.GankView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +37,11 @@ public class TestServiceActivity extends AppCompatActivity {
 
     private GankView gankView=new GankView() {
         @Override
+        public void showGankItems(List<GankItem> gankItems) {
+
+        }
+
+        @Override
         public void getGankComplete() {
             Toast.makeText(TestServiceActivity.this,"getGankComplete",Toast.LENGTH_SHORT).show();
         }
@@ -48,7 +56,7 @@ public class TestServiceActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_getGank:
-                gankPresenter.getGanks("2018","06","15");
+                gankPresenter.getGanksByDate("2018","06","15");
                 break;
             case R.id.btn_searchGank:
                 break;

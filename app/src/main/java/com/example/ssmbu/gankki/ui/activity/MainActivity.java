@@ -1,7 +1,6 @@
 package com.example.ssmbu.gankki.ui.activity;
 
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +19,7 @@ import android.widget.FrameLayout;
 import com.example.ssmbu.gankki.R;
 import com.example.ssmbu.gankki.ui.fragment.BrowseGankFragment;
 import com.example.ssmbu.gankki.ui.fragment.RandomGankFragment;
-import com.example.ssmbu.gankki.ui.fragment.SearchGankView;
+import com.example.ssmbu.gankki.ui.fragment.SearchGankFragment;
 import com.example.ssmbu.gankki.ui.fragment.XianduFragment;
 
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else {
             fragments.add(new BrowseGankFragment());
             fragments.add(new RandomGankFragment());
-            fragments.add(new SearchGankView());
+            fragments.add(new SearchGankFragment());
             fragments.add(new XianduFragment());
             //testFragment();
             showFragment();
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(mainToolbar);
 
-        mainToolbar.setNavigationIcon(R.drawable.ic_menu_black);
+        //mainToolbar.setNavigationIcon(R.drawable.);
 
         mainToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,12 +154,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void showFragment() {
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         if(!fragments.get(mCurrentNavPosition).isAdded()){
-            if(currentFragment!=null)
-            transaction.hide(currentFragment);
+            if(currentFragment!=null) {
+                transaction.hide(currentFragment);
+            }
+            Log.d(TAG, "showFragment: add a fragment");
             transaction.add(R.id.frameLayout,fragments.get(mCurrentNavPosition),mCurrentNavPosition+"");
         }else {
-            transaction.hide(currentFragment)
-                    .show(fragments.get(mCurrentNavPosition));
+            if(currentFragment!=null) {
+                transaction.hide(currentFragment);
+            }
+            transaction.show(fragments.get(mCurrentNavPosition));
         }
         currentFragment=fragments.get(mCurrentNavPosition);
         transaction.commit();
@@ -169,9 +172,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    @OnClick(R.id.btn_testservice)
-    public void onViewClicked() {
-        Intent intent = new Intent(MainActivity.this, TestServiceActivity.class);
-        startActivity(intent);
-    }
+
 }

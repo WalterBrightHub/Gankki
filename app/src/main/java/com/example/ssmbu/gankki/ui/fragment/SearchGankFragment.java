@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.ssmbu.gankki.R;
 
-public class SearchGankView extends Fragment {
+public class SearchGankFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

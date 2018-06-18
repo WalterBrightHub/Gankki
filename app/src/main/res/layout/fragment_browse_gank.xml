@@ -9,6 +9,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabMode="scrollable" />
 
     <android.support.v4.view.ViewPager
@@ -19,11 +20,5 @@
         android:visibility="visible">
 
     </android.support.v4.view.ViewPager>
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 
 </LinearLayout>

@@ -1,7 +1,8 @@
 package com.example.ssmbu.gankki.service.model;
 
 import com.example.ssmbu.gankki.service.GankService;
-import com.example.ssmbu.gankki.service.entity.DailyGank;
+import com.example.ssmbu.gankki.service.entity.DailyGanks;
+import com.example.ssmbu.gankki.service.entity.Ganks;
 import com.google.gson.GsonBuilder;
 
 import io.reactivex.Observable;
@@ -24,7 +25,11 @@ public class GankModel {
                 .build();
         service=retrofit.create(GankService.class);
     }
-    public Observable<DailyGank> getDailyGank(String yyyy, String mm, String dd){
-        return service.getDailyGank(yyyy, mm, dd);
+    public Observable<DailyGanks> getGanksByDate(String yyyy, String mm, String dd){
+        return service.getGanksByDate(yyyy, mm, dd);
+    }
+
+    public Observable<Ganks> getGanksByTag(String tag,String count,String page){
+        return service.getGankByTag(tag, count, page);
     }
 }

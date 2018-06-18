@@ -2,7 +2,7 @@ package com.example.ssmbu.gankki.service.entity;
 
 import java.util.List;
 
-public class DailyGank {
+public class DailyGanks {
 
     /**
      * category : ["Android","福利","iOS","瞎推荐","前端","拓展资源","休息视频"]
