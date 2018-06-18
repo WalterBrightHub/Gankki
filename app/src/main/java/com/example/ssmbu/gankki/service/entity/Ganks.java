@@ -9,8 +9,11 @@ public class Ganks implements GankItemsInterface{
         List<GankItem> gankItems=new ArrayList<>();
         if(!isError()){
             for(ResultsBean resultsBean:results){
-                GankItem gankItem=new GankItem(resultsBean._id,resultsBean.desc,resultsBean.publishedAt,resultsBean.type,resultsBean.url,resultsBean.who);
-                gankItems.add(gankItem);
+                if(!resultsBean.type.equals("福利")&&!resultsBean.type.equals("休息视频")){
+                    GankItem gankItem=new GankItem(resultsBean._id,resultsBean.desc,resultsBean.publishedAt,resultsBean.type,resultsBean.url,resultsBean.who);
+                    gankItems.add(gankItem);
+                }
+
             }
         }
         return gankItems;

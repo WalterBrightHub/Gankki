@@ -79,13 +79,15 @@ public class GankListFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(getContext(),"刷新", Toast.LENGTH_SHORT).show();
+
                 mGankPresenter.getGanksByTag(mTag,"20","1");
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
+
+    private boolean firstload=true;
 
     @Override
     public void onDestroyView() {
@@ -96,13 +98,18 @@ public class GankListFragment extends Fragment {
     private GankView mGankView=new GankView() {
         @Override
         public void showGankItems(List<GankItem> gankItems) {
-            recyclerView.setAdapter(new RecyclerAdapter(gankItems));
+            recyclerView.setAdapter(new RecyclerAdapter(gankItems,GankListFragment.this));
             Log.d(TAG, "showGankItems: "+gankItems.size());
         }
 
         @Override
         public void getGankComplete() {
             swipeRefreshLayout.setRefreshing(false);
+            if(firstload){
+                firstload=false;
+                return;
+            }
+            Toast.makeText(getContext(),"加载完成", Toast.LENGTH_SHORT).show();
         }
 
         @Override

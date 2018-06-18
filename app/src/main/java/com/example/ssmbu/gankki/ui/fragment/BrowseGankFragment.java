@@ -61,22 +61,20 @@ public class BrowseGankFragment extends Fragment {
         tags=new ArrayList<>();
 
         titles.add("真·全栈");
-        titles.add("iOS");
         titles.add("Android");
+        titles.add("iOS");
+        titles.add("App");
         titles.add("前端");
         titles.add("瞎推荐");
         titles.add("拓展资源");
-        titles.add("福利");
-        titles.add("休息视频");
 
         tags.add("all");
-        tags.add("iOS");
         tags.add("Android");
+        tags.add("iOS");
+        tags.add("App");
         tags.add("前端");
         tags.add("瞎推荐");
         tags.add("拓展资源");
-        tags.add("福利");
-        tags.add("休息视频");
 
         for(int i=0;i<titles.size();i++){
             GankListFragment fragment=GankListFragment.newInstance(tags.get(i));
