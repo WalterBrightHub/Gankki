@@ -8,9 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +19,7 @@ import com.example.ssmbu.gankki.R;
 import com.example.ssmbu.gankki.ui.fragment.BrowseGankFragment;
 import com.example.ssmbu.gankki.ui.fragment.RandomGankFragment;
 import com.example.ssmbu.gankki.ui.fragment.SearchGankFragment;
-import com.example.ssmbu.gankki.ui.fragment.XianduFragment;
+import com.example.ssmbu.gankki.ui.fragment.BrowseXianduFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragments.add(new BrowseGankFragment());
             fragments.add(new RandomGankFragment());
             fragments.add(new SearchGankFragment());
-            fragments.add(new XianduFragment());
+            fragments.add(new BrowseXianduFragment());
             //testFragment();
             showFragment();
         }

@@ -23,4 +23,11 @@ public interface GankService {
     @GET("random/data/{tag}/{count}")
     Observable<Ganks> getGankRandomByTag(@Path("tag")String tag,
                                          @Path("count")String count);
+
+    //http://gank.io/api/search/query/listview/category/Android/count/10/page/1
+    @GET("search/query/{keyword}/category/{tag}/count/{count}/page/{page}")
+    Observable<Ganks> getGankByKeyword(@Path("keyword")String keyword,
+                                       @Path("tag")String tag,
+                                       @Path("count")String count,
+                                       @Path("page")String page);
 }
