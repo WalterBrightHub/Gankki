@@ -18,25 +18,32 @@ import com.example.ssmbu.gankki.service.entity.GankItem;
 import com.example.ssmbu.gankki.service.presenter.GankPresenter;
 import com.example.ssmbu.gankki.service.view.GankView;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class GankListFragment extends Fragment {
-    private static final String TAG = "GankListFragment";
+public class RandomGankRVFragment extends Fragment {
+    private static final String TAG = "BrowseGankRVFragment";
+    //一次加载20条数据
+    private static final String COUNT = "20";
+
+
+
 
     private String mTag;
+    private List<GankItem> mGankItems =new ArrayList<>();
+    private BrowseGankAdapter mBrowseGankAdapter;
 
 
-    public static GankListFragment newInstance(String tag){
-        final GankListFragment gankListFragment=new GankListFragment();
+    public static RandomGankRVFragment newInstance(String tag){
+        final RandomGankRVFragment randomGankRVFragment =new RandomGankRVFragment();
         final Bundle args=new Bundle();
         args.putString("tag",tag);
-        gankListFragment.setArguments(args);
-        return  gankListFragment;
+        randomGankRVFragment.setArguments(args);
+        return randomGankRVFragment;
     }
 
     private GankPresenter mGankPresenter;
@@ -58,9 +65,8 @@ public class GankListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_gank_list, container, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_browse_gank_rv, container, false);
         unbinder = ButterKnife.bind(this, view);
-
         return view;
     }
 
@@ -69,25 +75,47 @@ public class GankListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initView();
         mGankPresenter=new GankPresenter(mGankView);
-        //mGankPresenter.getGanksByDate("2018","6","15");
-        mGankPresenter.getGanksByTag(mTag,"20","1");
+
+        //mGankPresenter.getGanksByTag(mTag,COUNT,String.valueOf(mPage++));
+        mGankPresenter.getGanksRandomByTag(mTag,COUNT);
         swipeRefreshLayout.setRefreshing(true);
-        //Log.d(TAG, "onCreateView: "+new Date().toString());
     }
 
     private void initView(){
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                mGankPresenter.getGanksByTag(mTag,"20","1");
+                mGankItems.clear();
+                //会闪烁，体验不好
+                //mBrowseGankAdapter.notifyDataSetChanged();
+                mGankPresenter.getGanksRandomByTag(mTag,COUNT);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBrowseGankAdapter =new BrowseGankAdapter(mGankItems,RandomGankRVFragment.this);
+        recyclerView.setAdapter(mBrowseGankAdapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==RecyclerView.SCROLL_STATE_IDLE){
+                    if(!recyclerView.canScrollVertically(1)){
+                        mGankPresenter.getGanksRandomByTag(mTag,COUNT);
+                        //Log.d(TAG, "onScrollStateChanged: "+mPage);
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 
     }
 
-    private boolean firstload=true;
+
 
     @Override
     public void onDestroyView() {
@@ -98,18 +126,16 @@ public class GankListFragment extends Fragment {
     private GankView mGankView=new GankView() {
         @Override
         public void showGankItems(List<GankItem> gankItems) {
-            recyclerView.setAdapter(new RecyclerAdapter(gankItems,GankListFragment.this));
+            mGankItems.addAll(gankItems);
+            mBrowseGankAdapter.notifyDataSetChanged();
+
             Log.d(TAG, "showGankItems: "+gankItems.size());
         }
 
         @Override
         public void getGankComplete() {
             swipeRefreshLayout.setRefreshing(false);
-            if(firstload){
-                firstload=false;
-                return;
-            }
-            Toast.makeText(getContext(),"加载完成", Toast.LENGTH_SHORT).show();
+
         }
 
         @Override

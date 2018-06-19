@@ -19,4 +19,8 @@ public interface GankService {
     Observable<Ganks> getGankByTag(@Path("tag")String tag,
                                    @Path("count")String count,
                                    @Path("page")String page);
+    //http://gank.io/api/random/data/Android/20
+    @GET("random/data/{tag}/{count}")
+    Observable<Ganks> getGankRandomByTag(@Path("tag")String tag,
+                                         @Path("count")String count);
 }

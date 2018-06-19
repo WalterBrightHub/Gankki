@@ -9,10 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground = "?attr/selectableItemBackground"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
         app:contentPaddingBottom="10dp"
         app:contentPaddingLeft="15dp"
         app:contentPaddingRight="10dp"
@@ -30,6 +29,11 @@
                 android:text="@string/sample_gank_desc"
                 android:textAppearance="@android:style/TextAppearance.Material.Title"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/meizi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/via"

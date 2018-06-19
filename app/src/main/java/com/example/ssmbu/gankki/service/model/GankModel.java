@@ -32,4 +32,8 @@ public class GankModel {
     public Observable<Ganks> getGanksByTag(String tag,String count,String page){
         return service.getGankByTag(tag, count, page);
     }
+
+    public Observable<Ganks> getGanksRandomByTag(String tag,String count){
+        return service.getGankRandomByTag(tag, count);
+    }
 }

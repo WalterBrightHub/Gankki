@@ -86,4 +86,33 @@ public class GankPresenter{
                     }
                 });
     }
+
+    public void getGanksRandomByTag(String tag,String count){
+        gankModel.getGanksRandomByTag(tag, count)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Ganks>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Ganks ganks) {
+                        gankItems=ganks.getGankItems();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        gankView.getGankError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        gankView.getGankComplete();
+                        gankView.showGankItems(gankItems);
+                        Log.d(TAG, "onComplete: show "+gankItems.size());
+                    }
+                });
+    }
 }

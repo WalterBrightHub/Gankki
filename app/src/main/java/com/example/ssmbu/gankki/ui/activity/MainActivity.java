@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(currentFragment!=null) {
                 transaction.hide(currentFragment);
             }
-            Log.d(TAG, "showFragment: add a fragment");
+            //Log.d(TAG, "showFragment: add a fragment");
             transaction.add(R.id.frameLayout,fragments.get(mCurrentNavPosition),mCurrentNavPosition+"");
         }else {
             if(currentFragment!=null) {
@@ -170,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mainToolbar.setTitle(toobarTitles[mCurrentNavPosition]);
     }
-
 
 
 }

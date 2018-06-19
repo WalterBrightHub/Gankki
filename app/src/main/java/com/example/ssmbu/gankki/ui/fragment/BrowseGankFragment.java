@@ -22,9 +22,9 @@ import butterknife.Unbinder;
 
 public class BrowseGankFragment extends Fragment {
     @BindView(R.id.tabLayout)
-    TabLayout tabLayout;
+    TabLayout mTabLayout;
     @BindView(R.id.viewpager)
-    ViewPager viewpager;
+    ViewPager mViewpager;
 
     Unbinder unbinder;
 
@@ -49,64 +49,68 @@ public class BrowseGankFragment extends Fragment {
         unbinder.unbind();
     }
 
-    private LayoutInflater Inflater;
-    private List<String> titles;
-    private List<String> tags;
-    private List<Fragment> fragments;
+
+    private List<String> mTitles;
+    private List<String> mTags;
+    private List<Fragment> mFragments;
 
 
     private void initData(){
-        titles=new ArrayList<>();
-        fragments=new ArrayList<>();
-        tags=new ArrayList<>();
+        mTitles =new ArrayList<>();
+        mFragments =new ArrayList<>();
+        mTags =new ArrayList<>();
 
-        titles.add("真·全栈");
-        titles.add("Android");
-        titles.add("iOS");
-        titles.add("App");
-        titles.add("前端");
-        titles.add("瞎推荐");
-        titles.add("拓展资源");
+        mTitles.add("真·全栈");
+        mTitles.add("Android");
+        mTitles.add("iOS");
+        mTitles.add("App");
+        mTitles.add("前端");
+        mTitles.add("瞎推荐");
+        mTitles.add("拓展资源");
+        mTitles.add("休息视频");
+        mTitles.add("福利");
 
-        tags.add("all");
-        tags.add("Android");
-        tags.add("iOS");
-        tags.add("App");
-        tags.add("前端");
-        tags.add("瞎推荐");
-        tags.add("拓展资源");
+        mTags.add("all");
+        mTags.add("Android");
+        mTags.add("iOS");
+        mTags.add("App");
+        mTags.add("前端");
+        mTags.add("瞎推荐");
+        mTags.add("拓展资源");
+        mTags.add("休息视频");
+        mTags.add("福利");
 
-        for(int i=0;i<titles.size();i++){
-            GankListFragment fragment=GankListFragment.newInstance(tags.get(i));
-            fragments.add(fragment);
+        for(int i = 0; i< mTitles.size(); i++){
+            BrowseGankRVFragment fragment= BrowseGankRVFragment.newInstance(mTags.get(i));
+            mFragments.add(fragment);
 
-            tabLayout.addTab(tabLayout.newTab().setText(titles.get(i)));
+            mTabLayout.addTab(mTabLayout.newTab().setText(mTitles.get(i)));
         }
 
-        FragmentPagerAdapter mAdapter=new FragmentPagerAdapter(getFragmentManager()) {
+        FragmentPagerAdapter adapter=new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return fragments.get(position);
+                return mFragments.get(position);
             }
 
             @Override
             public int getCount() {
                 //return 0;
-                return fragments.size();
+                return mFragments.size();
             }
 
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-                return titles.get(position);
+                return mTitles.get(position);
             }
         };
 
-        viewpager.setAdapter(mAdapter);
-        tabLayout.setupWithViewPager(viewpager);
+        mViewpager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewpager);
         //预加载所有页面，否则来回切换页面（fragment）的时候会重新创建页面
-        viewpager.setOffscreenPageLimit(titles.size());
-        //tabLayout.setTabsFromPagerAdapter(mAdapter);
+        mViewpager.setOffscreenPageLimit(mTitles.size());
+        //mTabLayout.setTabsFromPagerAdapter(mAdapter);
 
     }
 }
