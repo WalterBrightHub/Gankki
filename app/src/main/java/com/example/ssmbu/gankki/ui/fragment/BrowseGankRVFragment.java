@@ -1,5 +1,6 @@
 package com.example.ssmbu.gankki.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -81,6 +82,7 @@ public class BrowseGankRVFragment extends Fragment {
         mGankPresenter=new GankPresenter(mGankView);
 
         mGankPresenter.getGanksByTag(mTag,COUNT,String.valueOf(mPage++));
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setRefreshing(true);
     }
 

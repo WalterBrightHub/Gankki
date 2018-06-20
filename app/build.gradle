@@ -18,6 +18,8 @@ android {
     }
 }
 
+def dbflow_version = "4.2.4"
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -43,5 +45,9 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation files('libs/open_sdk_r6008_lite.jar')
 
-    implementation 'org.litepal.android:core:2.0.0'
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+
 }

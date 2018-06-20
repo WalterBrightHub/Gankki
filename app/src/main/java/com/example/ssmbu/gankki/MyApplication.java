@@ -3,7 +3,8 @@ package com.example.ssmbu.gankki;
 import android.app.Application;
 import android.content.Context;
 
-import org.litepal.LitePal;
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 
 public class MyApplication extends Application{
     private static Context context;
@@ -12,8 +13,8 @@ public class MyApplication extends Application{
     public void onCreate() {
         super.onCreate();
         context=getApplicationContext();
+        FlowManager.init(this);
 
-        LitePal.initialize(this);
     }
     public static   Context getContext(){
         return context;

@@ -3,19 +3,17 @@ package com.example.ssmbu.gankki.service.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.litepal.crud.DataSupport;
-import org.litepal.crud.LitePalSupport;
+
 
 import java.util.List;
 
-public class GankItem implements Parcelable {
+public class GankItem  implements Parcelable {
     private String _id;
     private String desc;
     private String publishedAt;
     private String type;
     private String url;
     private String who;
-    public GankItem(){}
 
     public GankItem(String _id, String desc, String publishedAt, String type, String url, String who) {
         this._id = _id;

@@ -46,6 +46,7 @@
         app:fab_addButtonColorPressed="@android:color/transparent"
         app:fab_addButtonPlusIconColor="@color/colorAccent"
         app:fab_expandDirection="up"
+        app:fab_labelsPosition="right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
