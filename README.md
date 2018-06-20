@@ -6,7 +6,9 @@
 + Material Designer设计
 + MVP架构，Retrofit2+RxJava2
 ## 预览
-日后再说
+![PREVIEW](https://github.com/WalterBrightHub/Gankki/raw/master/Screenshots/main.png)
+![PREVIEW](https://github.com/WalterBrightHub/Gankki/raw/master/Screenshots/nav.png)
+![PREVIEW](https://github.com/WalterBrightHub/Gankki/raw/master/Screenshots/browser.png)
 ## 第三方库
 + [ButterKnife](https://github.com/JakeWharton/butterknife)
 + [DBFlow](https://github.com/Raizlabs/DBFlow)
