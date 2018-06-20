@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,8 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ssmbu.gankki.R;
-import com.example.ssmbu.gankki.database.model.GankItemTable;
-import com.example.ssmbu.gankki.database.model.GankItemTable_Table;
 import com.example.ssmbu.gankki.service.entity.GankItem;
 import com.example.ssmbu.gankki.service.entity.GankItem_Table;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -34,9 +31,6 @@ public class BrowserActivity extends AppCompatActivity {
     FloatingActionButton mStar;
     @BindView(R.id.floatingActionsMenu)
     FloatingActionsMenu floatingActionsMenu;
-    //private String mUrl;
-    //private String mDesc;
-    //private String mId;
 
     private GankItem mGankItem;
 
@@ -60,7 +54,6 @@ public class BrowserActivity extends AppCompatActivity {
             mGankItem.setUrl("http://gank.io/");
         }
         if(mGankItem.getDesc().equals("")){
-            //mDesc = "快来看这个干货！";
             mGankItem.setDesc("快来看这个干货");
         }
         initStarState();
@@ -88,14 +81,11 @@ public class BrowserActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        //mUrl = mIntent.getStringExtra("url");
-        //mDesc=mIntent.getStringExtra("desc");
-        //mId=mIntent.getStringExtra("_id");
         mWebview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageCommitVisible(WebView view, String url) {
                 super.onPageCommitVisible(view, url);
-                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.INVISIBLE);
                 floatingActionsMenu.setVisibility(View.VISIBLE);
             }
         });
@@ -106,19 +96,6 @@ public class BrowserActivity extends AppCompatActivity {
         mStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*GankItemTable gankItemTable=new GankItemTable();
-                gankItemTable.insertData(mGankItem.get_id(),mGankItem.getDesc(),mGankItem.getPublishedAt(),mGankItem.getType(),mGankItem.getUrl(),mGankItem.getWho());
-                boolean save= gankItemTable.save();
-                if(save){
-                    Toast.makeText(BrowserActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(BrowserActivity.this,"收藏失败啦",Toast.LENGTH_SHORT).show();
-                }*/
-                //mStar.setIcon(R.drawable.ic_star_white_24dp);
-
-                //List<GankItemTable> gankItemTables = SQLite.select().from(GankItemTable.class).queryList();
-                //Log.d(TAG, "onClick: 数据库数据 "+gankItemTables.size());
                 toggleStarState();
                 floatingActionsMenu.toggle();
             }
@@ -156,16 +133,13 @@ public class BrowserActivity extends AppCompatActivity {
                     .query();
         }
         else if(!mStarStateOnCreate&&mStarState){
-            //添加收藏
-            //GankItemTable gankItemTable=new GankItemTable();
-            //gankItemTable.insertData(mGankItem.get_id(),mGankItem.getDesc(),mGankItem.getPublishedAt(),mGankItem.getType(),mGankItem.getUrl(),mGankItem.getWho());
             boolean save= mGankItem.save();
             if(!save){
                 Toast.makeText(BrowserActivity.this,"收藏失败啦",Toast.LENGTH_SHORT).show();
             }
 
         }
-        Log.d(TAG, "onDestroy: "+getDBCounts());
+        //Log.d(TAG, "onDestroy: "+getDBCounts());
         super.onDestroy();
     }
 

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static final String TAG = "MainActivity";
     private static final String SELECT_POSITION = "selectPosition";
-    private static final String[] toobarTitles={"干货","随便看看","搜索","闲读"};
+    private static final String[] toobarTitles={"干货","随便看看","搜索","收藏夹"};
     @BindView(R.id.mainToolbar)
     Toolbar mainToolbar;
     @BindView(R.id.navigation_view)
