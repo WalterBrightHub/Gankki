@@ -140,7 +140,8 @@ public class RandomGankRVFragment extends Fragment {
 
         @Override
         public void getGankError() {
-
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(getContext(),"加载失败", Toast.LENGTH_SHORT).show();
         }
     };
 }

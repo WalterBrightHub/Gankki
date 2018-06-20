@@ -2,10 +2,12 @@ package com.example.ssmbu.gankki.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +89,7 @@ public class BrowseGankFragment extends Fragment {
             mTabLayout.addTab(mTabLayout.newTab().setText(mTitles.get(i)));
         }
 
-        FragmentPagerAdapter adapter=new FragmentPagerAdapter(getChildFragmentManager()) {
+        FragmentStatePagerAdapter adapter=new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
@@ -103,6 +105,10 @@ public class BrowseGankFragment extends Fragment {
             @Override
             public CharSequence getPageTitle(int position) {
                 return mTitles.get(position);
+            }
+            @Override
+            public int getItemPosition(@NonNull Object object) {
+                return POSITION_NONE;
             }
         };
 

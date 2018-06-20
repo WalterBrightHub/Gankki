@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -97,7 +98,7 @@ public class SearchGankFragment extends Fragment {
         mTitles.add("瞎推荐");
         mTitles.add("拓展资源");
         mTitles.add("休息视频");
-        mTitles.add("福利");
+        //mTitles.add("福利");
 
         mTags.add("all");
         mTags.add("Android");
@@ -107,15 +108,13 @@ public class SearchGankFragment extends Fragment {
         mTags.add("瞎推荐");
         mTags.add("拓展资源");
         mTags.add("休息视频");
-        mTags.add("福利");
+        //mTags.add("福利");
 
         mFragments.clear();
         mTabLayout.removeAllTabs();
-        if(mViewpager.getAdapter()!=null){
-            //mViewpager.getAdapter().destroyItem();
-        }
         for (int i = 0; i < mTitles.size(); i++) {
-            String keyword=mKeyword.getText().toString();
+            //关键词要嵌入到URL中，不管怎么样先加个空格
+            String keyword=" "+mKeyword.getText().toString();
             SearchGankRVFragment fragment = SearchGankRVFragment.newInstance(keyword,mTags.get(i));
             mFragments.add(fragment);
             if(mViewpager.getAdapter()!=null){
@@ -125,7 +124,7 @@ public class SearchGankFragment extends Fragment {
             mTabLayout.addTab(mTabLayout.newTab().setText(mTitles.get(i)));
         }
 
-        FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager()) {
+        FragmentStatePagerAdapter adapter1=new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
@@ -133,7 +132,6 @@ public class SearchGankFragment extends Fragment {
 
             @Override
             public int getCount() {
-                //return 0;
                 return mFragments.size();
             }
 
@@ -143,9 +141,13 @@ public class SearchGankFragment extends Fragment {
                 return mTitles.get(position);
             }
 
+            @Override
+            public int getItemPosition(@NonNull Object object) {
+                return POSITION_NONE;
+            }
         };
 
-        mViewpager.setAdapter(adapter);
+        mViewpager.setAdapter(adapter1);
         mTabLayout.setupWithViewPager(mViewpager);
         //预加载所有页面，否则来回切换页面（fragment）的时候会重新创建页面
         //搜索也不预加载了吧

@@ -166,7 +166,8 @@ public class SearchGankRVFragment extends Fragment {
 
         @Override
         public void getGankError() {
-            Toast.makeText(getContext(),"加载失败:"+mKeyword, Toast.LENGTH_SHORT).show();
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(getContext(),"加载失败", Toast.LENGTH_SHORT).show();
         }
     };
 }

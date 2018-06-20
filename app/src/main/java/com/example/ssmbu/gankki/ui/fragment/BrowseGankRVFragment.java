@@ -62,7 +62,7 @@ public class BrowseGankRVFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle args=getArguments();
-        mTag=(String) args.getString("tag","all");
+        mTag=args.getString("tag","all");
     }
 
     @Nullable
@@ -132,7 +132,7 @@ public class BrowseGankRVFragment extends Fragment {
         public void showGankItems(List<GankItem> gankItems) {
             mGankItems.addAll(gankItems);
             mBrowseGankAdapter.notifyDataSetChanged();
-            if(gankItems.size()!=Integer.valueOf(COUNT)){
+            if(gankItems.size()<Integer.valueOf(COUNT)){
                 isLastLoad=true;
             }
             if(isFirstLoad){
@@ -157,7 +157,8 @@ public class BrowseGankRVFragment extends Fragment {
 
         @Override
         public void getGankError() {
-
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(getContext(),"加载失败", Toast.LENGTH_SHORT).show();
         }
     };
 }
