@@ -4,16 +4,35 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+import com.example.ssmbu.gankki.database.AppDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.annotation.Unique;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.List;
 
-public class GankItem  implements Parcelable {
+@Table(database = AppDatabase.class)
+public class GankItem extends BaseModel implements Parcelable {
+
+    @PrimaryKey(autoincrement = true)
+    public long id;
+    @Column
+    @Unique
     private String _id;
+    @Column
     private String desc;
+    @Column
     private String publishedAt;
+    @Column
     private String type;
+    @Column
     private String url;
+    @Column
     private String who;
+
+    public GankItem(){}
 
     public GankItem(String _id, String desc, String publishedAt, String type, String url, String who) {
         this._id = _id;

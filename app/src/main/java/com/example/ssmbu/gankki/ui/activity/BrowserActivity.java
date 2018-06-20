@@ -15,6 +15,7 @@ import com.example.ssmbu.gankki.R;
 import com.example.ssmbu.gankki.database.model.GankItemTable;
 import com.example.ssmbu.gankki.database.model.GankItemTable_Table;
 import com.example.ssmbu.gankki.service.entity.GankItem;
+import com.example.ssmbu.gankki.service.entity.GankItem_Table;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -71,9 +72,9 @@ public class BrowserActivity extends AppCompatActivity {
 
 
     private void initStarState(){
-        List<GankItemTable> gankItemTables=
-        SQLite.select().from(GankItemTable.class).where(GankItemTable_Table._id.eq(mGankItem.get_id())).queryList();
-        if(gankItemTables.size()==0){
+        List<GankItem> gankItems=
+        SQLite.select().from(GankItem.class).where(GankItem_Table._id.eq(mGankItem.get_id())).queryList();
+        if(gankItems.size()==0){
             //Log.d(TAG, "initStarState: 未收藏");
             mStarState=false;
             mStar.setIcon(R.drawable.ic_star_border_white_24dp);
@@ -150,15 +151,15 @@ public class BrowserActivity extends AppCompatActivity {
         if(mStarStateOnCreate&&!mStarState){
             //取消收藏
             SQLite.delete()
-                    .from(GankItemTable.class)
-                    .where(GankItemTable_Table._id.eq(mGankItem.get_id()))
+                    .from(GankItem.class)
+                    .where(GankItem_Table._id.eq(mGankItem.get_id()))
                     .query();
         }
         else if(!mStarStateOnCreate&&mStarState){
             //添加收藏
-            GankItemTable gankItemTable=new GankItemTable();
-            gankItemTable.insertData(mGankItem.get_id(),mGankItem.getDesc(),mGankItem.getPublishedAt(),mGankItem.getType(),mGankItem.getUrl(),mGankItem.getWho());
-            boolean save= gankItemTable.save();
+            //GankItemTable gankItemTable=new GankItemTable();
+            //gankItemTable.insertData(mGankItem.get_id(),mGankItem.getDesc(),mGankItem.getPublishedAt(),mGankItem.getType(),mGankItem.getUrl(),mGankItem.getWho());
+            boolean save= mGankItem.save();
             if(!save){
                 Toast.makeText(BrowserActivity.this,"收藏失败啦",Toast.LENGTH_SHORT).show();
             }
@@ -182,6 +183,6 @@ public class BrowserActivity extends AppCompatActivity {
     }
 
     private int getDBCounts(){
-        return SQLite.select().from(GankItemTable.class).queryList().size();
+        return SQLite.select().from(GankItem.class).queryList().size();
     }
 }
