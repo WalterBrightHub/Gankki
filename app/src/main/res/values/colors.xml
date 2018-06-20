@@ -5,6 +5,7 @@
     <color name="colorAccent">#ff8400</color>
     <color name="accent">#e0e0e0</color>
     <color name="gankBack">#ebe8d7</color>
+    <color name="gankDarker">#9c5100</color>
     <color name="white">#ffffff</color>
 
     <color name="black_overlay">#66000000</color>

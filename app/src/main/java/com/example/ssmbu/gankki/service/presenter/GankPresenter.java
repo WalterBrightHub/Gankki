@@ -57,7 +57,7 @@ public class GankPresenter{
                 });
     }
 
-    List<GankItem> gankItems;
+    List<GankItem> mGankItems;
     public void getGanksByTag(String tag,String count,String page){
         gankModel.getGanksByTag(tag, count, page)
                 .subscribeOn(Schedulers.io())
@@ -70,7 +70,7 @@ public class GankPresenter{
 
                     @Override
                     public void onNext(Ganks ganks) {
-                            gankItems=ganks.getGankItems();
+                            mGankItems =ganks.getGankItems();
                     }
 
                     @Override
@@ -81,8 +81,8 @@ public class GankPresenter{
                     @Override
                     public void onComplete() {
                         gankView.getGankComplete();
-                        gankView.showGankItems(gankItems);
-                        Log.d(TAG, "onComplete: show "+gankItems.size());
+                        gankView.showGankItems(mGankItems);
+                        Log.d(TAG, "onComplete: show "+ mGankItems.size());
                     }
                 });
     }
@@ -99,7 +99,7 @@ public class GankPresenter{
 
                     @Override
                     public void onNext(Ganks ganks) {
-                        gankItems=ganks.getGankItems();
+                        mGankItems =ganks.getGankItems();
                     }
 
                     @Override
@@ -110,8 +110,8 @@ public class GankPresenter{
                     @Override
                     public void onComplete() {
                         gankView.getGankComplete();
-                        gankView.showGankItems(gankItems);
-                        Log.d(TAG, "onComplete: show "+gankItems.size());
+                        gankView.showGankItems(mGankItems);
+                        Log.d(TAG, "onComplete: show "+ mGankItems.size());
                     }
                 });
     }
@@ -128,7 +128,7 @@ public class GankPresenter{
 
                     @Override
                     public void onNext(Ganks ganks) {
-                        gankItems=ganks.getGankItems();
+                        mGankItems =ganks.getGankItems();
                     }
 
                     @Override
@@ -139,8 +139,36 @@ public class GankPresenter{
                     @Override
                     public void onComplete() {
                         gankView.getGankComplete();
-                        gankView.showGankItems(gankItems);
-                        Log.d(TAG, "onComplete: show "+gankItems.size());
+                        gankView.showGankItems(mGankItems);
+                        Log.d(TAG, "onComplete: show "+ mGankItems.size());
+                    }
+                });
+    }
+
+    public void getCollectionsByTag(String tag){
+        gankModel.getCollectionsByTag(tag)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<GankItem>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<GankItem> gankItems) {
+                        mGankItems=gankItems;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        gankView.getGankError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        gankView.getGankComplete();
+                        gankView.showGankItems(mGankItems);
                     }
                 });
     }

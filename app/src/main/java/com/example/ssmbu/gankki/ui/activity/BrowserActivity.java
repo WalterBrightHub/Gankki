@@ -97,7 +97,18 @@ public class BrowserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toggleStarState();
-                floatingActionsMenu.toggle();
+                //在这里停顿，让用户看到状态
+                floatingActionsMenu.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                            floatingActionsMenu.toggle();
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
         share.setOnClickListener(new View.OnClickListener() {

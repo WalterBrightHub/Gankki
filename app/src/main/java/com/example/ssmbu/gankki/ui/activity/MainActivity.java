@@ -16,10 +16,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.ssmbu.gankki.R;
+import com.example.ssmbu.gankki.ui.fragment.AboutFragment;
 import com.example.ssmbu.gankki.ui.fragment.BrowseGankFragment;
+import com.example.ssmbu.gankki.ui.fragment.CollectionsOfGanksFragment;
 import com.example.ssmbu.gankki.ui.fragment.RandomGankFragment;
 import com.example.ssmbu.gankki.ui.fragment.SearchGankFragment;
-import com.example.ssmbu.gankki.ui.fragment.BrowseXianduFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static final String TAG = "MainActivity";
     private static final String SELECT_POSITION = "selectPosition";
-    private static final String[] toobarTitles={"干货","随便看看","搜索","收藏夹"};
+    private static final String[] toobarTitles={"干货","随便看看","搜索","收藏夹","关于"};
     @BindView(R.id.mainToolbar)
     Toolbar mainToolbar;
     @BindView(R.id.navigation_view)
@@ -67,12 +68,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragments.add(fragmentManager.findFragmentByTag(1+""));
             fragments.add(fragmentManager.findFragmentByTag(2+""));
             fragments.add(fragmentManager.findFragmentByTag(3+""));
+            fragments.add(fragmentManager.findFragmentByTag(4+""));
             restoreFragment();
         }else {
             fragments.add(new BrowseGankFragment());
             fragments.add(new RandomGankFragment());
             fragments.add(new SearchGankFragment());
-            fragments.add(new BrowseXianduFragment());
+            fragments.add(new CollectionsOfGanksFragment());
+            fragments.add(new AboutFragment());
             //testFragment();
             showFragment();
         }
@@ -127,8 +130,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_searchGank:
                 mCurrentNavPosition = 2;
                 break;
-            case R.id.nav_xiandu:
+            case R.id.nav_collections:
                 mCurrentNavPosition = 3;
+                break;
+            case R.id.nav_about:
+                mCurrentNavPosition=4;
+                break;
         }
         item.setChecked(true);
         showFragment();

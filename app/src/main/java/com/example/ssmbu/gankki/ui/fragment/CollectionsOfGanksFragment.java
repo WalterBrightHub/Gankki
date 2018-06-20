@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class BrowseXianduFragment extends Fragment {
+public class CollectionsOfGanksFragment extends Fragment {
     @BindView(R.id.tabLayout)
     TabLayout mTabLayout;
     @BindView(R.id.viewpager)
@@ -58,17 +59,17 @@ public class BrowseXianduFragment extends Fragment {
     private void initData(){
         mTitles =new ArrayList<>();
         mFragments =new ArrayList<>();
+
         mTags =new ArrayList<>();
-        //科技资讯 趣味软件/游戏 装备党 草根新闻 Android 创业新闻 独立思想 iOS 团队博客
-        mTitles.add("科技资讯");
-        mTitles.add("趣味软件/游戏");
-        mTitles.add("装备党");
-        mTitles.add("草根新闻");
+        mTitles.add("真·全栈");
         mTitles.add("Android");
-        mTitles.add("创业新闻");
-        mTitles.add("独立思想");
         mTitles.add("iOS");
-        mTitles.add("团队博客");
+        mTitles.add("App");
+        mTitles.add("前端");
+        mTitles.add("瞎推荐");
+        mTitles.add("拓展资源");
+        //mTitles.add("休息视频");
+        //mTitles.add("福利");
 
         mTags.add("all");
         mTags.add("Android");
@@ -77,17 +78,17 @@ public class BrowseXianduFragment extends Fragment {
         mTags.add("前端");
         mTags.add("瞎推荐");
         mTags.add("拓展资源");
-        mTags.add("休息视频");
-        mTags.add("福利");
+        //mTags.add("休息视频");
+        //mTags.add("福利");
 
         for(int i = 0; i< mTitles.size(); i++){
-            BrowseGankRVFragment fragment= BrowseGankRVFragment.newInstance(mTags.get(i));
+            //BrowseGankRVFragment fragment= BrowseGankRVFragment.newInstance(mTags.get(i));
+            CollectionsOfGanksRVFragment fragment=CollectionsOfGanksRVFragment.newInstance(mTags.get(i));
             mFragments.add(fragment);
 
             mTabLayout.addTab(mTabLayout.newTab().setText(mTitles.get(i)));
         }
-
-        FragmentPagerAdapter adapter=new FragmentPagerAdapter(getChildFragmentManager()) {
+        FragmentStatePagerAdapter adapter=new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
