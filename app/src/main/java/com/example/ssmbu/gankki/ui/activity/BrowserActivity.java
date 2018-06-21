@@ -114,9 +114,18 @@ public class BrowserActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
                 floatingActionsMenu.setVisibility(View.VISIBLE);
             }
+
+            //5.0似乎不支持onPageCommitVisible
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.INVISIBLE);
+                floatingActionsMenu.setVisibility(View.VISIBLE);
+            }
         });
         mWebview.getSettings().setJavaScriptEnabled(true);
 
+        //Log.d(TAG, "shouldOverrideUrlLoading: "+mGankItem.getUrl());
         mWebview.loadUrl(mGankItem.getUrl());
 
         mStar.setOnClickListener(new View.OnClickListener() {
