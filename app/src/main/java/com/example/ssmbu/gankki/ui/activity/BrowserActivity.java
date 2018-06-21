@@ -1,10 +1,12 @@
 package com.example.ssmbu.gankki.ui.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -82,8 +84,32 @@ public class BrowserActivity extends AppCompatActivity {
 
     private void initView() {
         mWebview.setWebViewClient(new WebViewClient() {
+
+            //https://blog.csdn.net/qq_36113598/article/details/78175478
+            //启动知乎，bilibili等app，防止报错UNKNOWN SCHEME
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url)
+            {
+                if(url == null) return false;
+                Log.d(TAG, "shouldOverrideUrlLoading: "+url);
+                try {
+                    if (url.startsWith("http:") || url.startsWith("https:")) {
+                        view.loadUrl(url);
+                        return true;
+                    }
+                    else {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                        return true;
+                    }
+                } catch (Exception e) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+                    return false;
+                }
+            }
+
             @Override
             public void onPageCommitVisible(WebView view, String url) {
+                Log.d(TAG, "onPageCommitVisible: 我准备好了！");
                 super.onPageCommitVisible(view, url);
                 progressBar.setVisibility(View.INVISIBLE);
                 floatingActionsMenu.setVisibility(View.VISIBLE);
