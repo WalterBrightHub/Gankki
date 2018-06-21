@@ -115,7 +115,7 @@ public class BrowserActivity extends AppCompatActivity {
                 floatingActionsMenu.setVisibility(View.VISIBLE);
             }
 
-            //5.0似乎不支持onPageCommitVisible
+            //5.0似乎不支持onPageCommitVisibleg
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
