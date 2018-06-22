@@ -32,6 +32,14 @@
         app:layout_constraintEnd_toEndOf="@+id/floatingActionsMenu"
         app:layout_constraintStart_toStartOf="@+id/floatingActionsMenu" />
 
+    <ImageView
+        android:id="@+id/floatingback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:visibility="invisible"
+        app:srcCompat="@color/white" />
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/floatingActionsMenu"
         android:layout_width="wrap_content"
