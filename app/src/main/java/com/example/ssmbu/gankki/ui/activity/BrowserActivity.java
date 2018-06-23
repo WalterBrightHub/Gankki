@@ -3,6 +3,7 @@ package com.example.ssmbu.gankki.ui.activity;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.ssmbu.gankki.MyApplication;
 import com.example.ssmbu.gankki.R;
 import com.example.ssmbu.gankki.service.entity.GankItem;
 import com.example.ssmbu.gankki.service.entity.GankItem_Table;
@@ -106,8 +108,27 @@ public class BrowserActivity extends AppCompatActivity {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
+                        try{
+                            Log.d(TAG, "onClick: "+url);
+                            if(url.startsWith("intent://")){
+                                //解析intent协议，比如简书
+                                //http://sumile.cn/archives/1222.html
+                                Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                                intent.addCategory("android.intent.category.BROWSABLE");
+                                intent.setComponent(null);
+                                intent.setSelector(null);
+                                startActivityIfNeeded(intent, -1);
+                            }
+                            else {
+                                //解析自定义SCHEME，比如知乎
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+
+                        }catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 })
                 .create();
