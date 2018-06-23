@@ -1,6 +1,9 @@
 package com.example.ssmbu.gankki.ui.activity;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -83,11 +86,40 @@ public class BrowserActivity extends AppCompatActivity {
         mStarStateOnCreate = mStarState;
     }
 
+    private AlertDialog loadThirdAppDialog;
+    private boolean banLoadThirdApp=false;
+
+    //流氓SCHEME疯狂请求跳转，对话框的阴影叠加成黑眼圈了
+    private void loadThirdApp(final String url){
+        if(loadThirdAppDialog!=null){
+            loadThirdAppDialog.hide();
+        }
+        loadThirdAppDialog=new  AlertDialog.Builder(BrowserActivity.this)
+                .setTitle("即将跳转到第三方应用")
+                .setMessage("如不是手动操作，请点击\"去你大爷\"禁止跳转。")
+                .setNegativeButton("去你大爷", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        banLoadThirdApp=true;
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                    }
+                })
+                .create();
+        loadThirdAppDialog.show();
+    }
+
     private void initView() {
         mWebview.setWebViewClient(new WebViewClient() {
 
             //https://blog.csdn.net/qq_36113598/article/details/78175478
             //启动知乎，bilibili等app，防止报错UNKNOWN SCHEME
+            //弹出确认窗口，拦截流氓SCHEME
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url == null) return false;
@@ -97,8 +129,9 @@ public class BrowserActivity extends AppCompatActivity {
                         view.loadUrl(url);
                         return true;
                     } else {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
+                        if(!banLoadThirdApp){
+                            loadThirdApp(url);
+                        }
                         return true;
                     }
                 } catch (Exception e) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)

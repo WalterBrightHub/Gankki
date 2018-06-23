@@ -75,9 +75,6 @@ public class BrowseGankAdapter extends RecyclerView.Adapter<BrowseGankAdapter.Re
                     else {
                         Intent intent=new Intent(mFragment.getContext(), BrowserActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        //intent.putExtra("url",gankItem.getUrl());
-                        //intent.putExtra("desc",gankItem.getDesc());
-                        //intent.putExtra("_id",gankItem.get_id());
                         intent.putExtra("gankItem_data",gankItem);
                         mFragment.startActivity(intent);
                     }

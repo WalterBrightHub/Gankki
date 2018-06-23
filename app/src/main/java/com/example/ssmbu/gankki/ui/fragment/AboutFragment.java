@@ -10,12 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ssmbu.gankki.R;
+import com.example.ssmbu.gankki.service.entity.GankItem;
+import com.example.ssmbu.gankki.ui.activity.BrowserActivity;
+
+import java.text.SimpleDateFormat;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class AboutFragment extends Fragment {
+
+    static SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 
     Unbinder unbinder;
 
@@ -39,9 +45,14 @@ public class AboutFragment extends Fragment {
             case R.id.cardView:
                 break;
             case R.id.gankkiOnGithub:
-                Intent intent =new Intent();
+                /*Intent intent =new Intent();
                 intent.setData(Uri.parse("https://github.com/WalterBrightHub/Gankki"));
                 intent.setAction("android.intent.action.VIEW");
+                startActivity(intent);*/
+                Intent intent=new Intent(getContext(), BrowserActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                GankItem gankItem=new GankItem("tooyoungtoosimple","又一个干货集中营客户端：Gankii",format.format(System.currentTimeMillis()),"Android","https://github.com/WalterBrightHub/Gankki","You");
+                intent.putExtra("gankItem_data",gankItem);
                 startActivity(intent);
                 break;
         }
