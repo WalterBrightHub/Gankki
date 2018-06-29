@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(mainToolbar);
 
-        //mainToolbar.setNavigationIcon(R.drawable.);
 
         mainToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,11 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void testFragment(){
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-        transaction.add(R.id.frameLayout,new BrowseGankFragment(),0+"");
-        transaction.commit();
-    }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
