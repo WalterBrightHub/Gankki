@@ -40,6 +40,7 @@ public class BrowseGankRVFragment extends Fragment {
     private String mTag;
     private List<GankItem> mGankItems =new ArrayList<>();
     private BrowseGankAdapter mBrowseGankAdapter;
+    private GankAdapter mGankAdapter;
 
 
     public static BrowseGankRVFragment newInstance(String tag){
@@ -99,7 +100,9 @@ public class BrowseGankRVFragment extends Fragment {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBrowseGankAdapter =new BrowseGankAdapter(mGankItems,BrowseGankRVFragment.this);
-        recyclerView.setAdapter(mBrowseGankAdapter);
+        //recyclerView.setAdapter(mBrowseGankAdapter);
+        mGankAdapter=new GankAdapter(mGankItems,this);
+        recyclerView.setAdapter(mGankAdapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -134,6 +137,7 @@ public class BrowseGankRVFragment extends Fragment {
         public void showGankItems(List<GankItem> gankItems) {
             mGankItems.addAll(gankItems);
             mBrowseGankAdapter.notifyDataSetChanged();
+            mGankAdapter.notifyDataSetChanged();
             if(gankItems.size()<Integer.valueOf(COUNT)){
                 isLastLoad=true;
             }

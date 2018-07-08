@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,14 +64,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(savedInstanceState!=null){
             //restore fragment
+            Log.d(TAG, "onCreate: restore");
             fragments.removeAll(fragments);
+
             fragments.add(fragmentManager.findFragmentByTag(0+""));
             fragments.add(fragmentManager.findFragmentByTag(1+""));
             fragments.add(fragmentManager.findFragmentByTag(2+""));
             fragments.add(fragmentManager.findFragmentByTag(3+""));
             fragments.add(fragmentManager.findFragmentByTag(4+""));
+            Log.d(TAG, "onCreate: restore fragment");
             restoreFragment();
         }else {
+            Log.d(TAG, "onCreate: add new");
             fragments.add(new BrowseGankFragment());
             fragments.add(new RandomGankFragment());
             fragments.add(new SearchGankFragment());
@@ -98,12 +103,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState: ");
         super.onSaveInstanceState(outState);
         outState.putInt(SELECT_POSITION, mCurrentNavPosition);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Log.d(TAG, "onRestoreInstanceState: ");
         super.onRestoreInstanceState(savedInstanceState);
         //restore nav
         mCurrentNavPosition = savedInstanceState.getInt(SELECT_POSITION, 0);
@@ -148,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 transaction.hide(fragments.get(i));
             }
         }
+        transaction.addToBackStack(null);
         transaction.commit();
         currentFragment=fragments.get(mCurrentNavPosition);
     }
